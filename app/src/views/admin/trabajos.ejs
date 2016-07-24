@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<% include ../partials/admin-head %>
+<body>
+	<div id="page" class="container">
+		<% include ../partials/admin-header %>
+		<% include ../partials/admin-mainmenu %>
+
+		<div class="container">
+			<div class="content">
+				<a href="/admin/trabajos/nuevo">
+					<button class="submit">Crear nuevo trabajo</button>
+				</a>
+				<div class="grid-view">
+					<div class="summary">Mostrando resultados.</div>
+					<table class="items">
+						<thead>
+							<tr class="head-sort">
+								<!--<th><a id="title">Titutlo</a></th>
+								<th><a id="institution">Institución</a></th>
+								<th><a id="date">Fecha</a></th>-->
+								<th>Titutlo</th>
+								<th>Institución</th>
+								<th>Fecha</th>
+								<th>Opciones</th>
+							</tr>
+							<!--<tr class="filters">
+								<td><input class="filter" name="title" type="text"></td>
+								<td><input class="filter" name="institution" type="text"></td>
+								<td></td>
+								<td></td>
+							</tr>-->
+						</thead>
+						<tbody id="trabajos-wrapper">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<% include ../partials/admin-footer %>
+	</div>
+
+	<!-- build:js /assets/js/admin-trabajos-app.bundle.min.js -->
+	<script type="text/javascript" src="/assets/js/admin-trabajos-app.bundle.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

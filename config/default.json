@@ -1,0 +1,12 @@
+{
+	"Application": {
+		"directory": {
+			"path": "app/src"
+		}
+	},
+	"Database": {
+		"host": "localhost",
+		"port": "27017",
+		"db": "perucuadros"
+	}
+}

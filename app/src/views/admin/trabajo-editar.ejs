@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<% include ../partials/admin-head %>
+<body>
+	<div id="page" class="container">
+		<% include ../partials/admin-header %>
+		<% include ../partials/admin-mainmenu %>
+
+		<div class="container">
+			<div class="content">
+				<form id="trabajo-editar" action="#" method="put" enctype="multipart/form-data">
+					<table id="trabajo-editar-table" class="table-form" style="width:900px">
+						<tr>
+							<td><input class="submit" type="submit" value="Guardar" style="width: 80px;"></td>
+							<td></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<% include ../partials/admin-footer %>
+	</div>
+
+	<!-- build:js /assets/js/admin-editar-trabajo-app.bundle.min.js -->
+	<script type="text/javascript" src="/assets/js/admin-editar-trabajo-app.bundle.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

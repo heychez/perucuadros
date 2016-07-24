@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<% include ../partials/admin-head %>
+<body>
+	<div id="page" class="container">
+		<% include ../partials/admin-header %>
+		<% include ../partials/admin-mainmenu %>
+
+		<div class="container">
+			<div class="span-18">
+				<div class="content">
+					<div class="list-view">
+						<div class="items" id="trabajo">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span-6 last">
+				<div id="sidebar">
+					<div class="portlet">
+						<div class="portlet-decoration">
+							<div class="portlet-title">Opciones</div>
+						</div>
+						<div class="portlet-content">
+							<ul id="opciones">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include ../partials/admin-footer %>
+
+		<!-- build:js /assets/js/admin-trabajo-app.bundle.min.js -->
+		<script type="text/javascript" src="/assets/js/admin-trabajo-app.bundle.js"></script>
+		<!-- endbuild -->
+	</div>
+</body>
+</html>

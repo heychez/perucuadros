@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<% include ../partials/admin-head %>
+<body>
+	<div id="page" class="container">
+		<% include ../partials/admin-header %>
+		<% include ../partials/admin-mainmenu %>
+
+		<div class="container">
+			<div class="content">
+				<% if (msg == 'error') { %>
+					<div>Los datos ingresados son incorrectos.</div>
+				<% } %>
+				<form action="/admin/opciones" method="post">
+					<table class="table-form">
+						<tbody>
+						<tr>
+							<td><label>Usuario</label></td>
+							<td><input name="new_username" type="text" value="<%= username %>" required></td>
+						</tr>
+						<tr>
+							<td><label>Contraseña actual</label></td>
+							<td><input name="password" type="password" required></td>
+						</tr>
+						<tr>
+							<td><label>Nueva Contraseña</label></td>
+							<td><input name="new_password" type="password"></td>
+						</tr>
+						<tr>
+							<td><label>Repita la Contraseña</label></td>
+							<td><input name="new_password_re" type="password"></td>
+						</tr>
+						</tbody>
+					</table>
+					<input class="submit" type="submit" value="Guardar nuevos datos">
+				</form>
+			</div>
+		</div>
+
+		<% include ../partials/admin-footer %>
+	</div>
+</body>
+</html>

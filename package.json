@@ -1,0 +1,45 @@
+{
+  "name": "perucuadros",
+  "version": "1.0.0",
+  "description": "perucuadros.net",
+  "main": "app.js",
+  "scripts": {
+    "start": "NODE_ENV=development && node app.js",
+    "start-prod": "NODE_ENV=production && node app.js",
+    "start-win": "scripts\\run-app-development-win.bat",
+    "start-prod-win": "scripts\\run-app-production-win.bat"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "bootstrap": "^3.3.6",
+    "config": "^1.21.0",
+    "dom-builder": "^1.0.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "freewall": "^1.0.8",
+    "jimp": "^0.2.24",
+    "jquery": "^2.2.4",
+    "mongoose": "^4.5.0",
+    "morgan": "^1.6.1",
+    "multer": "^1.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "del": "^2.2.0",
+    "event-stream": "^3.3.2",
+    "glob": "^7.0.3",
+    "gulp": "^3.9.1",
+    "gulp-cache": "^0.4.5",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.1.0",
+    "run-sequence": "^1.2.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

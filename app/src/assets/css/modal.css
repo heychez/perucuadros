@@ -1,0 +1,67 @@
+#modal-background {
+    display: none;
+    position: fixed;
+    background: #000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    z-index: 10;
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.modal.style {
+    width: 945px;
+    height: 500px;
+    min-width: 100px;
+    min-height: 300px;
+    overflow: hidden;
+    background: url(../img/fondo_main.png) repeat;
+    padding: 12px 14px;
+    border-color: #aaa #999 #888;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 3px 14px -4px #AC0303;
+    -ms-box-shadow: 0 3px 14px -4px #AC0303;
+    -moz-box-shadow: 0 3px 14px -4px #AC0303;
+    -webkit-box-shadow: 0 3px 14px -4px #AC0303;
+    box-shadow: 0 3px 14px -4px #AC0303;
+}
+
+
+
+.slider { overflow: hidden; padding: 0px; }
+  .slider .prev,
+  .slider .next { text-decoration: none; width: 32px; height: 32px; position: absolute; background-image: url("../img/controls.png"); z-index: 10; cursor: pointer; }
+  .slider .prev { background-position: 0 0; top: 50%; left: 20px; }
+  .slider .next { background-position: -43px 0; top: 50%; left: 388px; }
+  .slider .prev:hover { background-position: 0 -31px; }
+  .slider .next:hover { background-position: -43px -31px;}
+
+  .slider .slides { width: 100%; height: 476px; padding: 0px; overflow: hidden; position: relative; }
+    .slider .slides img { width: 100%; height: 100%; margin: 0px; background-color: #fff; }
+
+.modal .box { padding: 25px; color: #f6705e; font-family: 'PT Sans',Arial,Helvetica,sans-serif; overflow: auto; }
+    .modal .box > .title { font-size: 20px; margin-bottom: 12px; }
+    .modal .box .sub-title,
+    .modal .box .body { font-size: 10px; text-transform: uppercase;}
+    .modal .box .sub-title {  margin-bottom: 20px; color: #fff;}
+    .modal .box .body { line-height: 20px; margin-bottom: 20px; white-space: pre-wrap; word-spacing: 2px;}
+        .modal .box .body b {font-weight: bold; letter-spacing: 1px; color: #fff;}
+        .modal .box .body u {text-decoration: underline;}
+    .modal .box .links > .title{ color: #fff; margin-bottom: 8px; font-size: 14px; }
+    .modal .box .links a { color: #f6705e; font-size: 11px; text-decoration: none; }
+    .modal .box .links a:hover{ color: #fff; }
+

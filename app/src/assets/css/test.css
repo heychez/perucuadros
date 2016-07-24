@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url("../fonts/myriad_pro.eot");
+  src: url("../fonts/myriad_pro.eot?#iefix") format("embedded-opentype"), url("../fonts/myriad_pro.svg#Myriad Pro") format("svg"), url("../fonts/myriad_pro.woff") format("woff"), url("../fonts/myriad_pro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Myriad Pro', Arial,  sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #5C5C5C;
+  background-color: #fff;
+}
+
+.nav-head .logo .img-logo {
+    margin: 7px auto 0;
+    background-image: url(../img/logoweb.png);
+    width: 238px;
+    height: 57px;
+}

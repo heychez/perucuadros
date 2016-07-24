@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<% include ../partials/admin-head %>
+<body>
+	<div id="page" class="container">
+		<% include ../partials/admin-header %>
+		<% include ../partials/admin-mainmenu %>
+
+		<div class="container">
+			<div class="content">
+				<form id="trabajo-nuevo" action="/api/trabajos" method="post" enctype="multipart/form-data">
+					<table class="table-form" style="width:900px">
+						<tr>
+							<td><label>Titulo</label></td>
+							<td><input name="title" type="text" size="40" required></td>
+						</tr>
+						<tr>
+							<td><label>Institución</label></td>
+							<td><input name="institution" type="text" size="40"></td>
+						</tr>
+						<tr>
+							<td><label>Fecha</label></td>
+							<td><input name="date" type="text" size="40"></td>
+						</tr>
+						<tr>
+							<td><label>Imagenes</label></td>
+							<td>
+								<table class="table-form" style="width:520px; background-color:#F5F5F5;">
+									<tr>
+										<td><label>Archivo</label></td>
+										<td><input type="file" name="images[]"></td>
+									</tr>
+									<tr>
+										<td><label>Descripcion</label></td>
+										<td><input type="text" name="images_descrip[]" size="67"></td>
+									</tr>
+									<tr class="tr-border"><td></td><td><a class="quitar-subir-imagen">Quitar</a></td></tr>
+									<tr><td><a class="agregar-mas-imagenes">Agregar</a></td><td></td></tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><input class="submit" type="submit" value="Crear" style="width: 80px;"></td>
+							<td></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<% include ../partials/admin-footer %>
+	</div>
+
+	<!-- build:js /assets/js/admin-trabajo-nuevo-app.bundle.min.js -->
+	<script type="text/javascript" src="/assets/js/admin-trabajo-nuevo-app.bundle.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

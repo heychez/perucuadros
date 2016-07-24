@@ -1,0 +1,7 @@
+{
+	"Application": {
+		"directory": {
+			"path": "app/dist"
+		}
+	}
+}
