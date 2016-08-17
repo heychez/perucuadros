@@ -1,6 +1,7 @@
 var multer = require('multer');
 var fs = require('fs');
 var jimp = require('jimp');
+var cors = require('cors')
 var models = require('../models');
 
 module.exports = function (app) {
@@ -13,17 +14,28 @@ module.exports = function (app) {
         
         if (notAllowedMethods.indexOf(reqMethod) != -1) {
         	if (!req.session.user) {
-                //return res.status(401).end();
+                return res.status(401).end();
             }
         }
 
         next();
 	});
 
-    var upload = multer({dest: 'app/data/imagenes'});
-    var cpUpload = upload.any();
+	// cors config
+	var corsWhitelist = ['http://perucuadros.net', 'https://perucuadros.net'];
+	var corsOptions = {
+		origin: function (origin, callback) {
+			callback(null, corsWhitelist.indexOf(origin) !== -1);
+		}
+	};
 
-	app.get('/api/trabajos', function (req, res) {
+	// multer config (files uploader)
+	var allowedExts = ['.png', '.jpg', '.gif', '.svg'];
+    var upload = multer({dest: 'app/data/imagenes', limits: {fileSize: 5000000}});
+    var cpUpload = upload.array('images[]');
+
+
+	app.get('/api/trabajos', cors(corsOptions), function (req, res) {
 		var Trabajo = models.Trabajo;
 		
 		Trabajo.find()
@@ -39,7 +51,7 @@ module.exports = function (app) {
 			});
 	});
 
-	app.post('/api/trabajos', cpUpload, function (req, res) {
+	app.post('/api/trabajos', cors(corsOptions), cpUpload, function (req, res) {
 		var Trabajo = models.Trabajo;
 		
 		var trabajo = new Trabajo({
@@ -50,28 +62,35 @@ module.exports = function (app) {
 		});
 
 		for (var i in req.files){
-			var fname = String(i).concat(new Date().getTime()).concat(req.files[i].originalname.slice(-4));
+			var ext = req.files[i].originalname.slice(-4);
+
+			if (allowedExts.indexOf(ext) == -1) continue;
+
+			var name = String(i).concat(new Date().getTime());
+			var fname = name.concat(ext);
+			var thumbFname = name.concat('_thumb').concat(ext);
+
 			trabajo.images.push({
 				description: req.body['images_descrip'][i],
 				filename: fname,
-				thumb_filename: 'thumb_'+fname
+				thumb_filename: thumbFname
 			});
 
-			(function (filename) {
-				fs.rename('app/data/imagenes/'+req.files[i].filename, 'app/data/imagenes/'+filename, function (err) {
+			(function (fname, thumbFname) {
+				fs.rename('app/data/imagenes/'+req.files[i].filename, 'app/data/imagenes/'+fname, function (err) {
 					if (err) {
 						console.error(err);
 					} else {
-						console.log('jimp '+filename);
-						jimp.read('app/data/imagenes/'+filename).then(function (img) {
+						console.log('jimp '+fname);
+						jimp.read('app/data/imagenes/'+fname).then(function (img) {
 							img.resize(330, jimp.AUTO)
-								.write('app/data/imagenes/thumb_'+filename);
+								.write('app/data/imagenes/'+thumbFname);
 						}).catch(function (rerr) {
 							if (rerr) console.error(rerr);
 						});
 					}
 				});
-			})(fname);
+			})(fname, thumbFname);
 		}
 
 		trabajo.save()
@@ -87,7 +106,7 @@ module.exports = function (app) {
 			});
 	});
 
-	app.get('/api/trabajos/:id', function (req, res) {
+	app.get('/api/trabajos/:id', cors(corsOptions), function (req, res) {
 		var Trabajo = models.Trabajo;
 
 		Trabajo.findById(req.params.id)
@@ -103,7 +122,8 @@ module.exports = function (app) {
         	});
 	});
 
-	app.put('/api/trabajos/:id', cpUpload, function (req, res) {
+	app.options('/api/trabajos/:id', cors(corsOptions));
+	app.put('/api/trabajos/:id', cors(corsOptions), cpUpload, function (req, res) {
 		var Trabajo = models.Trabajo;
 		
 		Trabajo.findById(req.params.id, function (err, doc) {
@@ -131,7 +151,7 @@ module.exports = function (app) {
 								}
 								
 								try {
-									fs.unlinkSync('app/data/imagenes/thumb_'+doc.images[j].filename);
+									fs.unlinkSync('app/data/imagenes/'+doc.images[j].thumb_filename);
 								} catch (err) {
 									console.error(err);
 								}
@@ -144,27 +164,34 @@ module.exports = function (app) {
 				}
 
 				for (var i in req.files){
-					var fname = String(i).concat(new Date().getTime()).concat(req.files[i].originalname.slice(-4));
+					var ext = req.files[i].originalname.slice(-4);
+
+					if (allowedExts.indexOf(ext) == -1) continue;
+
+					var name = String(i).concat(new Date().getTime());
+					var fname = name.concat(ext);
+					var thumbFname = name.concat('_thumb').concat(ext);
+
 					doc.images.push({
 						description: req.body['images_descrip'][i],
 						filename: fname,
-						thumb_filename: 'thumb_'+fname
+						thumb_filename: thumbFname
 					});
 
-					(function (filename) {
-						fs.rename('app/data/imagenes/'+req.files[i].filename, 'app/data/imagenes/'+filename, function (err) {
+					(function (fname, thumbFname) {
+						fs.rename('app/data/imagenes/'+req.files[i].filename, 'app/data/imagenes/'+fname, function (err) {
 							if (err) {
 								console.error(err);
 							} else {
-								jimp.read('app/data/imagenes/'+filename).then(function (img) {
+								jimp.read('app/data/imagenes/'+fname).then(function (img) {
 									img.resize(330, jimp.AUTO)
-										.write('app/data/imagenes/thumb_'+filename);
+										.write('app/data/imagenes/'+thumbFname);
 								}).catch(function (rerr) {
 									if (rerr) console.error(rerr);
 								});
 							}
 						});
-					})(fname);
+					})(fname, thumbFname);
 				}
 
 				doc.save()
@@ -182,7 +209,7 @@ module.exports = function (app) {
 		});
 	});
 
-	app.delete('/api/trabajos/:id', function (req, res) {
+	app.delete('/api/trabajos/:id', cors(corsOptions), function (req, res) {
 		var Trabajo = models.Trabajo;
 
 		Trabajo.findByIdAndRemove(req.params.id)
@@ -191,7 +218,7 @@ module.exports = function (app) {
 					fs.unlink('app/data/imagenes/' + doc.images[i].filename, function (err) {
 						if (err)  console.error(err);
 					});
-					fs.unlink('app/data/imagenes/thumb_' + doc.images[i].filename, function (err) {
+					fs.unlink('app/data/imagenes/' + doc.images[i].thumb_filename, function (err) {
 						if (err)  console.error(err);
 					});
 				}

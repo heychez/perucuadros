@@ -53,7 +53,22 @@ form.onsubmit = function (evt) {
 		}
 	}
 
-	request.send(formData);
+	var fileSizeError = false;
+
+	if (formData.has('images[]')) {
+		var imagesInput = formData.getAll('images[]');
+
+		for (var i = 0; i < imagesInput.length; i++) {
+			if (imagesInput[i].size > 5000000) {
+				alert('La imagen ' + imagesInput[i].name + ' es muy pesada, el tamaño maximo permitido es de 5mb.');
+				fileSizeError = true;
+			}
+		}
+	}
+
+	if (!fileSizeError) {
+		request.send(formData);
+	}
 }
 },{"dom-builder":2,"jquery":3}],2:[function(require,module,exports){
 /*!
